@@ -1,3 +1,3 @@
-# linter
+# Container - Linter
 
-Dockerfile for linting
+Docker image for linting
