@@ -38,6 +38,8 @@ RUN apk --no-cache --update add \
   && pip install --no-cache-dir pytest --upgrade\
   && pip install --no-cache-dir pylint --upgrade \
   && pip install --no-cache-dir demjson --upgrade \
+  && pip install --no-cache-dir black --upgrade \
+  && pip install --no-cache-dir yamllint --upgrade \
   # && pip install --no-cache-dir pyflakes --upgrade \
   # && pip3 install --no-cache-dir flake8 --upgrade \
   && rm -rf /var/cache/apk/* \
