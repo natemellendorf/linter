@@ -45,7 +45,7 @@ RUN apk --no-cache --update add \
   && rm -rf /var/cache/apk/* \
   && npm install -g jshint@latest
 COPY --from=kubelint /kube-score /usr/local/bin/
-COPY --from=terraform /go/bin/terraform /usr/local/bin/
+COPY --from=terraform /bin/terraform /usr/local/bin/
 COPY --from=dockerlint /bin/hadolint /usr/local/bin/
 COPY --from=golint /usr/bin/golangci-lint /usr/local/bin/
 COPY --from=powerlint /opt/microsoft /usr/local/bin
