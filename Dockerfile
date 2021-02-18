@@ -1,4 +1,4 @@
-FROM hashicorp/terraform:full as terraform
+FROM hashicorp/terraform:0.14.6 as terraform
 FROM hadolint/hadolint:v1.17.5-8-gc8bf307-alpine as dockerlint
 FROM golangci/golangci-lint:latest as golint
 FROM zegl/kube-score:latest as kubelint
