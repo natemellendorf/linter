@@ -5,6 +5,10 @@ FROM zegl/kube-score:latest as kubelint
 FROM mcr.microsoft.com/powershell:lts-alpine-3.10 as powerlint
 FROM alpine:latest
 
+ENV ANSIBLE_VERSION 2.10.7
+ENV ANSIBLE_LINT 5.0.0
+ENV CRYPTOGRAPHY_DONT_BUILD_RUST 1
+
 RUN apk --no-cache --update add \
   bash \
   python2 \
@@ -32,16 +36,26 @@ RUN apk --no-cache --update add \
   zlib \
   icu-libs \
   git \
-  npm \
-  && pip install --no-cache-dir awscli --upgrade \
-  && pip install --no-cache-dir boto3 --upgrade \
-  && pip install --no-cache-dir pytest --upgrade\
-  && pip install --no-cache-dir pylint --upgrade \
-  && pip install --no-cache-dir demjson --upgrade \
-  && pip install --no-cache-dir black --upgrade \
-  && pip install --no-cache-dir yamllint --upgrade \
-  # && pip install --no-cache-dir pyflakes --upgrade \
-  # && pip3 install --no-cache-dir flake8 --upgrade \
+  npm
+  
+  RUN echo "Installing CSV-lint" \
+  mkdir csvlint \
+  && wget https://github.com/Clever/csvlint/releases/download/0.2.0/csvlint-v0.2.0-linux-amd64.tar.gz \
+  && tar -xf csvlint-v0.2.0-linux-amd64.tar.gz -C csvlint
+  
+  RUN pip install --upgrade pip cffi \
+  && echo "Installing Python packages..." \
+  && pip install \
+  ansible==$ANSIBLE_VERSION \
+  ansible-lint==$ANSIBLE_LINT \
+  awscli \
+  boto3 \
+  pytest \
+  pylint \
+  demjson \
+  black \
+  yamllint \
+  black \
   && rm -rf /var/cache/apk/* \
   && npm install -g jshint@latest
 COPY --from=kubelint /kube-score /usr/local/bin/
