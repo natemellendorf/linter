@@ -39,9 +39,9 @@ RUN apk --no-cache --update add \
   npm
   
   RUN echo "Installing CSV-lint" \
-  && mkdir csvlint \
   && wget https://github.com/Clever/csvlint/releases/download/0.2.0/csvlint-v0.2.0-linux-amd64.tar.gz \
-  && tar -xf csvlint-v0.2.0-linux-amd64.tar.gz -C csvlint
+  && tar -xvf csvlint-v0.2.0-linux-amd64.tar.gz \
+  && cp csvlint-v0.2.0-linux-amd64/csvlint /usr/local/bin/csvlint
   
   RUN pip install --upgrade pip cffi \
   && echo "Installing Python packages..." \
