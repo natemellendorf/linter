@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: linter
+  annotations:
+    github.com/project-slug: natemellendorf/linter
+spec:
+  type: other
+  lifecycle: unknown
+  owner: acme-corp
